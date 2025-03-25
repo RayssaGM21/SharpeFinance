@@ -1,0 +1,29 @@
+# Visual Studio e arquivos do usuário
+.vs/
+*.user
+*.suo
+*.vscode
+
+# Diretórios de build e binários
+bin/
+obj/
+
+# Pacotes NuGet e dependências
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+
+# Logs e arquivos de depuração
+*.log
+*.tlog
+*.pdb
+
+# Configurações locais
+appsettings.Development.json
+secrets.json
+Thumbs.db
+Desktop.ini
+
+# Arquivos gerados automaticamente
+*.generated.cs
