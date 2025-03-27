@@ -2,7 +2,7 @@
 
 public class Program
 {
-    private static List<conta> contas = new List<conta>();
+    private static List<string> conta = new List<string>();
     public static void CadastrarConta()
     {
         Console.WriteLine("Digite o nome do seu banco:");
@@ -11,19 +11,17 @@ public class Program
         Console.Write("Digite o seu saldo atual:");
         string saldo = Console.ReadLine();
 
-        List<conta> saldo_total = new List<conta>();
-        contas.Add(new conta(nome, saldo_total));
+        List<string> saldo_total = new List<string>();
+        conta.Add(new contas(nome, saldo_total));
 
         Console.WriteLine("Sua Conta foi cadastrada!");
 
-        for conta in contas
+        for contas in conta
         {
             Console.WriteLine(CadastrarConta[0], conta[1]);
         }
 
-        Console.WriteLine($nome{ nome}
-        { saldo_total}
-        ");
+        Console.WriteLine($"Nome: {contas.nome}, Saldo:{ contas.saldo_total} ");
     }
     public static void Main(string[] args)
     {
