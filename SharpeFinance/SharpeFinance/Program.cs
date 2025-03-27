@@ -12,16 +12,16 @@ public class Program
         string saldo = Console.ReadLine();
 
         List<string> saldo_total = new List<string>();
-        conta.Add(new contas(nome, saldo_total));
+        conta.Add(new conta(nome, saldo_total));
 
         Console.WriteLine("Sua Conta foi cadastrada!");
 
-        for contas in conta
+        foreach conta in conta
         {
             Console.WriteLine(CadastrarConta[0], conta[1]);
         }
 
-        Console.WriteLine($"Nome: {contas.nome}, Saldo:{ contas.saldo_total} ");
+        Console.WriteLine($"Nome: {nome}, Saldo:{ saldo_total} ");
     }
     public static void Main(string[] args)
     {
