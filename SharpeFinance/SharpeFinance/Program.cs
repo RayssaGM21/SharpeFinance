@@ -8,7 +8,7 @@ public class Program
         Console.WriteLine("Digite o nome do seu banco:");
         string nome = Console.ReadLine();
 
-        Console.Write("Digite o seu saldo atual:");
+        Console.WriteLine("Digite o seu saldo atual:");
         string saldo = Console.ReadLine();
 
         List<string> saldo_total = new List<string>();
