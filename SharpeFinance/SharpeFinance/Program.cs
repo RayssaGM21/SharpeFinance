@@ -2,29 +2,23 @@
 
 public class Program
 {
-    private static List<string> conta = new List<string>();
-    public static void CadastrarConta()
-    {
-        Console.WriteLine("Digite o nome do seu banco:");
-        string nome = Console.ReadLine();
-
-        Console.WriteLine("Digite o seu saldo atual:");
-        string saldo = Console.ReadLine();
-
-        List<string> saldo_total = new List<string>();
-        conta.Add(new conta(nome, saldo_total));
-
-        Console.WriteLine("Sua Conta foi cadastrada!");
-
-        foreach conta in conta
-        {
-            Console.WriteLine(CadastrarConta[0], conta[1]);
-        }
-
-        Console.WriteLine($"Nome: {nome}, Saldo:{ saldo_total} ");
-    }
     public static void Main(string[] args)
     {
-        CadastrarConta();
+        List<string> contas = new List<string>();
+
+        Console.WriteLine("Digite o nome da sua conta:");
+        string nome = Console.ReadLine();
+
+        Console.WriteLine("Digite o saldo da sua conta:");
+        string saldo = Console.ReadLine();
+
+        contas.Add($"Nome: {nome} Saldo: {saldo}");
+
+        Console.WriteLine("Sua conta foi cadastrada!");
+
+        foreach (var conta in contas)
+        {
+            Console.WriteLine(conta);
+        }
     }
 }
