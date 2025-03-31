@@ -15,6 +15,7 @@ public class Program
         contas.Add($"Nome: {nome} Saldo: {saldo}");
 
         Console.WriteLine("Sua conta foi cadastrada!");
+        Console.WriteLine("Teste");
 
         foreach (var conta in contas)
         {
