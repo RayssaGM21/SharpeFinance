@@ -96,11 +96,5 @@ public class Program
                 Console.WriteLine("Índice inválido!");
             }
 
-        /*//** Cadastrar transação *//*
-        Console.WriteLine("Digite o índice da conta pela qual você deseja fazer a transação: ");
-        int contaEscolhida = Convert.ToInt32(Console.ReadLine());
-
-        ;*/
-
     }
 }
