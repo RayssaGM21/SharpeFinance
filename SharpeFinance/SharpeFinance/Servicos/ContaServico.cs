@@ -1,4 +1,5 @@
 ﻿using SharpeFinance.Entidades;
+using System.Globalization;
 
 namespace SharpeFinance.Servicos
 {
@@ -11,9 +12,18 @@ namespace SharpeFinance.Servicos
 
             Console.Write("Digite o saldo inicial da conta: ");
             decimal saldoInicial;
-            while (!decimal.TryParse(Console.ReadLine(), out saldoInicial))
+
+            while (true)
             {
-                Console.Write("Valor inválido. Digite novamente: ");
+                try
+                {
+                    saldoInicial = Convert.ToDecimal(Console.ReadLine());
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.Write("Valor inválido. Digite novamente: ");
+                }
             }
 
             contas.Add(new Conta { Nome = nome, Saldo = saldoInicial });
@@ -24,7 +34,7 @@ namespace SharpeFinance.Servicos
         {
             for (int i = 0; i < contas.Count; i++)
             {
-                Console.WriteLine($"({i + 1}) {contas[i].Nome} - Saldo: {contas[i].Saldo:C}");
+                Console.WriteLine($"({i + 1}) {contas[i].Nome} - Saldo: {contas[i].Saldo.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}");
             }
         }
     }

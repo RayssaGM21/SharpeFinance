@@ -17,10 +17,17 @@ namespace SharpeFinance.Servicos
 
             ContaServico.ExibirContas(contas);
             Console.Write("Digite o índice da conta para transação: ");
-            Console.Write("Digite o índice da conta para transação: ");
-            int indiceConta = Convert.ToInt32(Console.ReadLine());
-            
-            if (indiceConta >= 0 && indiceConta > contas.Count)
+            int indiceConta;
+            try {
+                indiceConta = Convert.ToInt32(Console.ReadLine());
+
+                if (indiceConta <= 0 || indiceConta > contas.Count)
+                {
+                    Console.WriteLine("Índice inválido.");
+                    return;
+                }
+            }
+            catch (Exception)
             {
                 Console.WriteLine("Índice inválido.");
                 return;
@@ -31,15 +38,22 @@ namespace SharpeFinance.Servicos
             Console.Write("\nDigite o tipo de transação (Receita ou Despesa): ");
             string tipoInput = Console.ReadLine();
 
-
+            // Tenta converter a string 'tipoInput' para um valor válido do enum 'TipoTransacao' (ignorando maiúsculas/minúsculas),
+            // e verifica se o valor convertido é um valor válido dentro do enum 'TipoTransacao'. Se falhar em qualquer uma dessas verificações,
+            // retorna 'true' (indicando que o tipo é inválido).
             if (!Enum.TryParse<TipoTransacao>(tipoInput, true, out TipoTransacao tipo) || !Enum.IsDefined(typeof(TipoTransacao), tipo))
             {
                 Console.WriteLine("Tipo inválido!");
                 return;
             }
 
+            decimal valor;
             Console.Write("Digite o valor da transação: ");
-            if (!decimal.TryParse(Console.ReadLine(), out decimal valor))
+            try
+            {
+                valor = Convert.ToDecimal(Console.ReadLine());
+            }
+            catch (Exception)
             {
                 Console.WriteLine("Valor inválido!");
                 return;
@@ -75,18 +89,16 @@ namespace SharpeFinance.Servicos
             }
         }
 
-
-
         public static void ExibirSaldos(List<Conta> contas)
         {
             decimal saldoTotal = 0;
             Console.WriteLine("\n--- Saldos por Conta ---");
             foreach (var conta in contas)
             {
-                Console.WriteLine($"{conta.Nome}: {conta.Saldo:C}");
+                Console.WriteLine($"{conta.Nome}: {conta.Saldo.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}");
                 saldoTotal += conta.Saldo;
             }
-            Console.WriteLine($"Saldo total: {saldoTotal:C}");
+            Console.WriteLine($"Saldo total: {saldoTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}");
         }
 
         public static void ListarTransacoes(List<Conta> contas)
@@ -99,35 +111,51 @@ namespace SharpeFinance.Servicos
 
             ContaServico.ExibirContas(contas);
             Console.Write("Digite o índice da conta: ");
+
             int indiceConta;
-            if (!int.TryParse(Console.ReadLine(), out indiceConta) || indiceConta < 0 || indiceConta >= contas.Count)
+            try
+            {
+                indiceConta = Convert.ToInt32(Console.ReadLine());
+                if (indiceConta <= 0 || indiceConta > contas.Count)
+                {
+                    Console.WriteLine("Índice inválido.");
+                    return;
+                }
+            }
+            catch (Exception)
             {
                 Console.WriteLine("Índice inválido.");
                 return;
             }
 
-            var conta = contas[indiceConta];
+            var conta = contas[indiceConta - 1];
 
             Console.Write("Deseja ver (Todas / Receita / Despesa): ");
             string filtroTipo = Console.ReadLine();
             TipoTransacao? tipoFiltro = null;
 
-            if (filtroTipo.Equals("Receita", StringComparison.OrdinalIgnoreCase))
+            if (filtroTipo.ToLower() == "receita")
+            {
                 tipoFiltro = TipoTransacao.Receita;
-            else if (filtroTipo.Equals("Despesa", StringComparison.OrdinalIgnoreCase))
+            }
+
+            else if (filtroTipo.ToLower() == "despesa")
+            {
                 tipoFiltro = TipoTransacao.Despesa;
+            }
 
             Console.Write("Deseja filtrar por mês? Digite o número do mês (1 a 12) ou deixe vazio: ");
             string mesStr = Console.ReadLine();
             int? mes = string.IsNullOrEmpty(mesStr) ? null : int.Parse(mesStr);
 
             Console.WriteLine("\n--- Transações ---");
-            foreach (var t in conta.Transacoes)
+
+            foreach (var tipo in conta.Transacoes)
             {
-                if ((tipoFiltro == null || t.Tipo == tipoFiltro) &&
-                    (mes == null || t.Data.Month == mes))
+                if ((tipoFiltro == null || tipo.Tipo == tipoFiltro) &&
+                    (mes == null || tipo.Data.Month == mes))
                 {
-                    Console.WriteLine($"{t.Data:dd/MM/yyyy} - {t.Tipo} - {t.Descricao} - {t.Valor:C}");
+                    Console.WriteLine($"{tipo.Data:dd/MM/yyyy} - {tipo.Tipo} - {tipo.Descricao} - {tipo.Valor.ToString("C", CultureInfo.GetCultureInfo("pt-BR"))}");
                 }
             }
         }
